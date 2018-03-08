@@ -29,7 +29,7 @@ tf.app.flags.DEFINE_string('dataset', 'KITTI',
 tf.app.flags.DEFINE_string('data_path', '', """Root directory of data""")
 tf.app.flags.DEFINE_string('image_set', 'train',
                            """ Can be train, trainval, val, or test""")
-tf.app.flags.DEFINE_string('train_dir', '/tmp/bichen/logs/squeezeseg/train',
+tf.app.flags.DEFINE_string('train_dir', './logs/squeezeseg/train',
                             """Directory where to write event logs """
                             """and checkpoint.""")
 tf.app.flags.DEFINE_integer('max_steps', 1000000,
@@ -201,8 +201,8 @@ def train():
         if step % FLAGS.checkpoint_step == 0 or step == FLAGS.max_steps-1:
           checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
           saver.save(sess, checkpoint_path, global_step=step)
-    except Exception, e:
-      coord.request_stop(e)
+    except:
+      coord.request_stop()
     finally:
       coord.request_stop()
       sess.run(model.q.close(cancel_pending_enqueues=True))

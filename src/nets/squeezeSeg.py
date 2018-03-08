@@ -17,7 +17,7 @@ from nn_skeleton import ModelSkeleton
 
 class SqueezeSeg(ModelSkeleton):
   def __init__(self, mc, gpu_id=0):
-    with tf.device('/gpu:{}'.format(gpu_id)):
+    with tf.device('/cpu:{}'.format(gpu_id)):
       ModelSkeleton.__init__(self, mc)
 
       self._add_forward_graph()
